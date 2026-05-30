@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── List view ─────────────────────────────────────────────────────── -->
+    <record id="view_imported_inventory_list" model="ir.ui.view">
+        <field name="name">inventory.integration.imported_inventory.list</field>
+        <field name="model">inventory.integration.imported_inventory</field>
+        <field name="arch" type="xml">
+            <list string="Imported Inventories" decoration-muted="item_count == 0">
+                <field name="name"/>
+                <field name="external_id"/>
+                <field name="item_count"/>
+                <field name="field_count"/>
+                <field name="last_imported"/>
+                <button name="action_import" type="object"
+                        string="Re-import" icon="fa-refresh"
+                        class="btn-sm btn-secondary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Form view ─────────────────────────────────────────────────────── -->
+    <record id="view_imported_inventory_form" model="ir.ui.view">
+        <field name="name">inventory.integration.imported_inventory.form</field>
+        <field name="model">inventory.integration.imported_inventory</field>
+        <field name="arch" type="xml">
+            <form string="Imported Inventory" create="false">
+                <header>
+                    <button name="action_import" type="object"
+                            string="Re-import from API" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+
+                    <group>
+                        <group string="Identity">
+                            <field name="external_id" readonly="1"/>
+                            <field name="description" readonly="1"/>
+                            <field name="item_count" readonly="1"/>
+                            <field name="field_count" readonly="1"/>
+                            <field name="last_imported" readonly="1"/>
+                        </group>
+                        <group string="Connection">
+                            <field name="api_url"/>
+                            <field name="api_token" password="True"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Fields &amp; Statistics">
+                            <field name="field_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="field_type"/>
+                                    <field name="slot"/>
+                                    <field name="total_items"/>
+                                    <field name="filled_count"/>
+                                    <field name="fill_percent" string="Fill %"/>
+                                    <!-- Number columns -->
+                                    <field name="num_min"
+                                           optional="show"
+                                           column_invisible="field_type not in ('Number',)"/>
+                                    <field name="num_max"
+                                           optional="show"
+                                           column_invisible="field_type not in ('Number',)"/>
+                                    <field name="num_avg"
+                                           optional="show"
+                                           column_invisible="field_type not in ('Number',)"/>
+                                    <!-- Text / String columns -->
+                                    <field name="top_values"
+                                           optional="show"
+                                           column_invisible="field_type not in ('String','Text')"/>
+                                    <!-- Bool columns -->
+                                    <field name="bool_true_count"
+                                           optional="show"
+                                           column_invisible="field_type != 'Bool'"/>
+                                    <field name="bool_false_count"
+                                           optional="show"
+                                           column_invisible="field_type != 'Bool'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Action ────────────────────────────────────────────────────────── -->
+    <record id="action_imported_inventory" model="ir.actions.act_window">
+        <field name="name">Imported Inventories</field>
+        <field name="res_model">inventory.integration.imported_inventory</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No inventories imported yet.
+            </p>
+            <p>
+                Use the <strong>Import New Inventory</strong> menu item to import
+                your first inventory from the Inventory Management app.
+            </p>
+        </field>
+    </record>
+
+</odoo>

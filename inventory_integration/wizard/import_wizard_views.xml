@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_import_wizard_form" model="ir.ui.view">
+        <field name="name">inventory.integration.import_wizard.form</field>
+        <field name="model">inventory.integration.import_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Inventory from API">
+                <group>
+                    <field name="api_url"
+                           placeholder="https://your-app.onrender.com"/>
+                    <field name="api_token"
+                           placeholder="paste the token from the API Token tab"/>
+                    <field name="inventory_id"
+                           help="Leave empty to create a new record; select an existing one to refresh it."/>
+                </group>
+                <footer>
+                    <button name="action_import" type="object"
+                            string="Import" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the wizard from the menu -->
+    <record id="action_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import New Inventory</field>
+        <field name="res_model">inventory.integration.import_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
