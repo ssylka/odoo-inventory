@@ -1,4 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_imported_inventory_user,inventory.integration.imported_inventory user,model_inventory_integration_imported_inventory,base.group_user,1,1,1,1
-access_imported_field_user,inventory.integration.imported_field user,model_inventory_integration_imported_field,base.group_user,1,1,1,1
-access_import_wizard_user,inventory.integration.import_wizard user,model_inventory_integration_import_wizard,base.group_user,1,1,1,1
+access_imported_inventory,access.imported.inventory,model_inventory_imported_inventory,,1,1,1,1
+access_imported_field,access.imported.field,model_inventory_imported_field,,1,1,1,1
+access_import_wizard,access.import.wizard,model_inventory_import_wizard,,1,1,1,1
